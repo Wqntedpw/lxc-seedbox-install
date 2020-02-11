@@ -1,6 +1,7 @@
 hr () {
 	printf '━%.0s' $(seq $COLUMNS)
 }
+
 test_lxc () {
 	if [[ "$CMDLXC" -ne lxc ]]; then
 		echo "You are not in a LXC CT"
@@ -38,9 +39,9 @@ add_repository () {
 	echo "#Depot mediainfo" >> /etc/apt/sources.list.d/mediainfo.list
 	echo "deb http://mediaarea.net/repo/deb/debian/ buster main" >> /etc/apt/sources.list.d/mediainfo.list
 
-	wget -O /tmp/sury.gpg https://packages.sury.org/php/apt.gpg && apt-key add sury.gpg
-	wget -O /tmp/ http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.key
-	wget -O /tmp/mediainfo.gpg http://mediaarea.net/repo/deb/debian/pubkey.gpg && apt-key add mediainfo.gpg
+	wget -O /tmp/sury.gpg https://packages.sury.org/php/apt.gpg && apt-key add /tmp/sury.gpg
+	wget -O /tmp/ http://nginx.org/keys/nginx_signing.key && apt-key add /tmp/snginx_signing.key
+	wget -O /tmp/mediainfo.gpg http://mediaarea.net/repo/deb/debian/pubkey.gpg && apt-key add /tmp/smediainfo.gpg
 
 	apt update -oAcquire::AllowInsecureRepositories=true
 	apt install -y --allow-unauthenticated deb-multimedia-keyring
@@ -53,6 +54,7 @@ install_packages () {
 	apt install -y \
   apache2-utils \
   automake \
+  debian-keyring \
   htop \
   build-essential \
   curl \
@@ -100,7 +102,7 @@ install_packages () {
 
 install_xmrpc () {
 	echo -e "Installing xmrpc"
-	git clone https://github.com/mirror/xmlrpc-c.git /tmp/
+	git clone https://github.com/mirror/xmlrpc-c.git /tmp/xmlrpc-c
 	cd /tmp/xmlrpc-c/stable/
 	./configure
 	make
@@ -111,7 +113,7 @@ install_xmrpc () {
 
 install_libtorrent () {
 	echo -e "Installing libtorrent"
-	git clone https://github.com/rakshasa/libtorrent.git /tmp/
+	git clone https://github.com/rakshasa/libtorrent.git /tmp/libtorrent
 	cd /tmp/libtorrent
 	git checkout v0.13.8
 	./autogen.sh
@@ -124,7 +126,7 @@ install_libtorrent () {
 
 install_rtorrent () {
 	echo -e "Installing rtorrent"
-	git clone https://github.com/rakshasa/rtorrent.git /tmp/
+	git clone https://github.com/rakshasa/rtorrent.git /tmp/rtorrent
 	cd /tmp/rtorrent
 	git checkout v0.9.8
 	./autogen.sh
