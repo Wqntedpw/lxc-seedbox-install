@@ -1,8 +1,13 @@
+hr () {
+	printf '━%.0s' $(seq $COLUMNS)
+}
 test_lxc () {
 	if [[ "$CMDLXC" -ne lxc ]]; then
 		echo "You are not in a LXC CT"
 		exit 1;
 	fi
+	echo -e "[${green}V${nc}] Runnning in an LXC"
+	hr
 }
 
 test_root () {
@@ -10,9 +15,12 @@ test_root () {
    		echo "This script must be run as root" 
    		exit 1
 	fi
+	echo -e "[${green}V${nc}] Runnning as root"
+	hr
 }
 
 add_repository () {
+	echo -e "Adding repository"
 	echo "#Depot sury-php" >> /etc/apt/sources.list.d/sury-php.list
 	echo "deb https://packages.sury.org/php/ buster main" >> /etc/apt/sources.list.d/sury-php.list
 
@@ -37,9 +45,11 @@ add_repository () {
 	apt update -oAcquire::AllowInsecureRepositories=true
 	apt install -y --allow-unauthenticated deb-multimedia-keyring
 	apt update
+	hr
 }
 
 install_packages () {
+	echo -e "Installing packages"
 	apt install -y \
   apache2-utils \
   automake \
@@ -75,6 +85,7 @@ install_packages () {
   pkg-config \
   psmisc \
   python-pip \
+  python3-lxml \
   rar \
   screen \
   subversion \
@@ -84,18 +95,22 @@ install_packages () {
   vim \
   zip \
   zlib1g-dev
+  hr
 }
 
 install_xmrpc () {
+	echo -e "Installing xmrpc"
 	git clone https://github.com/mirror/xmlrpc-c.git /tmp/
 	cd /tmp/xmlrpc-c/stable/
 	./configure
 	make
 	make install
 	cd -
+	hr
 }
 
 install_libtorrent () {
+	echo -e "Installing libtorrent"
 	git clone https://github.com/rakshasa/libtorrent.git /tmp/
 	cd /tmp/libtorrent
 	git checkout v0.13.8
@@ -104,9 +119,11 @@ install_libtorrent () {
 	make
 	make install
 	cd -
+	hr
 }
 
 install_rtorrent () {
+	echo -e "Installing rtorrent"
 	git clone https://github.com/rakshasa/rtorrent.git /tmp/
 	cd /tmp/rtorrent
 	git checkout v0.9.8
@@ -116,13 +133,17 @@ install_rtorrent () {
 	make install
 	cd -
 	ldconfig
+	hr
 }
 
 install_rutorrent () {
+	echo -e "Installing rutorrent"
 	git clone https://github.com/Novik/ruTorrent.git /var/www/rutorrent
+	hr
 }
 
 install_rutorrentplugins () {
+	echo -e "Installing rutorrent plugins"
 	# Plugin bypass cloudflare
 	pip install cloudscraper
 
@@ -144,4 +165,5 @@ install_rutorrentplugins () {
 	git clone https://github.com/Micdu70/rutorrent-thirdparty-plugins.git /tmp/
 	mv /tmp/filemanager /var/www/rutorrent/plugins/
 	chown -R www-data:www-data /var/www/rutorrent
+	hr
 }

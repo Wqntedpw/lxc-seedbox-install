@@ -6,26 +6,23 @@
 ###
 
 
-
 ## Includes ##
 . inc/vars.sh
 . inc/funcs.sh
 
-test_lxc
-echo -e "[${green}V${nc}] Runnning in an LXC"
+test_lxc ; test_root
 
-test_root
-echo -e "[${green}V${nc}] Runnning as root"
 
 echo -e "Updating and installing required packages"
 apt update && apt upgrade -y
 apt install -y apt-transport-https gnupg2
-clear
+hr
 
-echo -e "Adding repository"
-add_repository 
-clear
 
-echo -e "Installing packages"
-install_packages ; install_xmrpc ; install_libtorrent ; install_rtorrent ; install_rutorrent ; install_rutorrentplugins
+add_repository ; install_packages
 
+install_xmrpc 
+
+install_libtorrent
+install_rtorrent
+install_rutorrent ; install_rutorrentplugins
