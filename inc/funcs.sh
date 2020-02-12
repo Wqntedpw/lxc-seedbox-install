@@ -1,5 +1,8 @@
-hr () {
-	printf '━%.0s' $(seq $COLUMNS)
+hr() {
+  local start=$'\e(0' end=$'\e(B' line='qqqqqqqqqqqqqqqq'
+  local cols=${COLUMNS:-$(tput cols)}
+  while ((${#line} < cols)); do line+="$line"; done
+  printf '%s%s%s\n' "$start" "${line:0:cols}" "$end"
 }
 
 test_lxc () {
@@ -41,7 +44,7 @@ add_repository () {
 
 	wget -O /tmp/sury.gpg https://packages.sury.org/php/apt.gpg && apt-key add /tmp/sury.gpg
 	wget -O /tmp/ http://nginx.org/keys/nginx_signing.key && apt-key add /tmp/snginx_signing.key
-	wget -O /tmp/mediainfo.gpg http://mediaarea.net/repo/deb/debian/pubkey.gpg && apt-key add /tmp/smediainfo.gpg
+	wget -O /tmp/mediainfo.gpg http://mediaarea.net/repo/deb/debian/pubkey.gpg && apt-key add /tmp/mediainfo.gpg
 
 	apt update -oAcquire::AllowInsecureRepositories=true
 	apt install -y --allow-unauthenticated deb-multimedia-keyring
@@ -96,7 +99,8 @@ install_packages () {
   sox \
   vim \
   zip \
-  zlib1g-dev
+  zlib1g-dev \
+  /
   hr
 }
 
