@@ -43,7 +43,7 @@ add_repository () {
 	echo "deb http://mediaarea.net/repo/deb/debian/ buster main" >> /etc/apt/sources.list.d/mediainfo.list
 
 	wget -O /tmp/sury.gpg https://packages.sury.org/php/apt.gpg && apt-key add /tmp/sury.gpg
-	wget -O /tmp/ http://nginx.org/keys/nginx_signing.key && apt-key add /tmp/snginx_signing.key
+	wget -O /tmp/nginx_signing.key http://nginx.org/keys/nginx_signing.key && apt-key add /tmp/nginx_signing.key
 	wget -O /tmp/mediainfo.gpg http://mediaarea.net/repo/deb/debian/pubkey.gpg && apt-key add /tmp/mediainfo.gpg
 
 	apt update -oAcquire::AllowInsecureRepositories=true
@@ -54,54 +54,8 @@ add_repository () {
 
 install_packages () {
 	echo -e "Installing packages"
-	apt install -y \
-  apache2-utils \
-  automake \
-  debian-keyring \
-  htop \
-  build-essential \
-  curl \
-  ffmpeg \
-  gawk \
-  git \
-  libcppunit-dev \
-  libcurl4-openssl-dev \
-  libncurses5-dev \
-  libsigc++-2.0-dev \
-  libsox-fmt-all \
-  libsox-fmt-mp3 \
-  libssl-dev \
-  libtool \
-  mediainfo \
-  mktorrent \
-  net-tools \
-  nginx \
-  php7.3 \
-  php7.3-cli \
-  php7.3-common \
-  php7.3-curl \
-  php7.3-fpm \
-  php7.3-json \
-  php7.3-mbstring \
-  php7.3-opcache \
-  php7.3-readline \
-  php7.3-xml \
-  php-geoip \
-  pkg-config \
-  psmisc \
-  python-pip \
-  python3-lxml \
-  rar \
-  screen \
-  subversion \
-  unrar \
-  unzip \
-  sox \
-  vim \
-  zip \
-  zlib1g-dev \
-  /
-  hr
+	apt install -y ${packagelist[@]}
+	hr
 }
 
 install_xmrpc () {

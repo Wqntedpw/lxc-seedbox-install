@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Colors
 nc="\033[0m"
 red="\033[1;31m"
 green="\033[1;32m"
@@ -9,3 +9,52 @@ purple="\033[1;35m"
 cyan="\e[1;36m"
 orange="\e[38;5;208m"
 test="test"
+
+# Packages list
+packagelist=(
+	apache2-utils
+	automake
+	debian-keyring
+	htop
+	build-essential
+	curl
+	ffmpeg
+	gawk
+	git
+	libcppunit-dev
+	libcurl4-openssl-dev
+	libncurses5-dev
+	libsigc++-2.0-dev
+	libsox-fmt-all
+	libsox-fmt-mp3
+	libssl-dev
+	libtool
+	mediainfo
+	mktorrent
+	net-tools
+	nginx
+	php7.3
+	php7.3-cli
+	php7.3-common
+	php7.3-curl
+	php7.3-fpm
+	php7.3-json
+	php7.3-mbstring
+	php7.3-opcache
+	php7.3-readline
+	php7.3-xml
+	php-geoip
+	pkg-config
+	psmisc
+	python-pip
+	python3-lxml
+	rar
+	screen
+	subversion
+	unrar
+	unzip
+	sox
+	vim
+	zip
+	zlib1g-dev
+)
